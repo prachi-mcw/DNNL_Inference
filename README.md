@@ -77,6 +77,7 @@ python compare.py
 ## Sample Output 
 
 Are the arrays equal? Yes
+
 Maximum absolute difference: 0.000000
 
 Python output (sample):
