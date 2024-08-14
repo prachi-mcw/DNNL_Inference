@@ -28,8 +28,10 @@ The repo contains the Independent C++ inference with ARM compute Library for [Re
 ## Cloning the Repo 
 Clone the repo using the following command  
 ```
-git clone https://github.com/prachi-mcw/DNNL_Inference/tree/resnet_18_inference
-cd dnnl_resnet18_inference
+git clone https://github.com/prachi-mcw/dnnl_inference
+cd dnnl_inference
+git checkout resnet_18_inference
+
 ```  
 
 ## Setting Up the Environment
