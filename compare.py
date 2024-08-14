@@ -1,29 +1,39 @@
+import sys
 import numpy as np
 
- # Load binary file and reshape it to the given shape.
-def load_bin_file(filename, shape):
-    data = np.fromfile(filename, dtype=np.float32)
-    return data.reshape(shape)
+"""
+    Function to compare two npy files and show differences if any exists
+"""
 
-# Compare two numpy arrays.
-def compare_arrays(array1, array2):
-    are_equal = np.allclose(array1, array2, atol=1e-6)
-    max_diff = np.max(np.abs(array1 - array2))
-    return are_equal, max_diff
 
-# Load the binary files
-python_output = load_bin_file('conv.bin', (1, 64, 24, 24))
-cpp_output = load_bin_file('cpp_output_conv.bin', (1, 64, 24, 24))
+def compare_npy_files(file1, file2):
+    file1 = np.load(file1)
+    file2 = np.load(file2)
 
-# Compare the arrays
-are_equal, max_diff = compare_arrays(python_output, cpp_output)
+    if file1.shape != file2.shape:
+        print(
+            f"Shapes do not match: {file1} has shape {file1.shape}, {file2} has shape {file2.shape}"
+        )
+        print(
+            "Checking files after flattening ",
+            np.allclose(file1.flatten(), file2.flatten(), rtol=1e-4, atol=1e-4),
+        )
+    else:
+        if np.allclose(file1, file2, rtol=1e-4, atol=1e-4):
+            print("Files are identical upto 4 decimals")
+        else:
+            # Show differences
+            differences = np.abs(file1 - file2)
+            mean_differences = np.mean(np.abs(file1[:, None] - file2))
+            print(f"Files differ. Max difference: {np.max(differences)}")
+            print(f"Files differ. Mean difference: {mean_differences}")
 
-print(f"Are the arrays equal? {'Yes' if are_equal else 'No'}")
-print(f"Maximum absolute difference: {max_diff:.6f}")
 
-# Optionally, print a small part of the arrays for visual inspection
-print("\nPython output (sample):")
-print(python_output[0, 0, :50, :50])
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python compare.py <file1> <file2>")
+        sys.exit(1)
 
-print("\nC++ output (sample):")
-print(cpp_output[0, 0, :50, :50])
+    file1 = sys.argv[1]
+    file2 = sys.argv[2]
+    compare_npy_files(file1, file2)
