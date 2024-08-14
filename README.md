@@ -31,7 +31,6 @@ Clone the repo using the following command
 git clone https://github.com/prachi-mcw/dnnl_inference
 cd dnnl_inference
 git checkout resnet_18_inference
-
 ```  
 
 ## Setting Up the Environment
