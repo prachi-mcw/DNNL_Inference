@@ -40,8 +40,9 @@ pip install -r requirements.txt
 ## Cloning the Repo 
 Clone the repo using the following command  
 ```
-git clone https://github.com/prachi-mcw/dnnl_conv_inference.git
-cd dnnl_conv_inference
+git clone https://github.com/prachi-mcw/dnnl_inference
+cd dnnl_inference
+git checkout dnnl_conv
 ```  
 
 ## How  Run Python Convolution Layer Inference (For Verification Of CPP Output)
